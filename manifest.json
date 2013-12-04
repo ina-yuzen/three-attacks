@@ -1,0 +1,35 @@
+{
+  "manifest_version": 2,
+
+  "name": "three attacks",
+  "description": "This extension attacks three times.",
+  "version": "1.0",
+  "icons": { "48": "icon.png",
+          "128": "icon.png" },
+
+  "browser_action": {
+    "default_popup" : "options.html",
+    "default_icon": "icon.png"
+  },
+  "permissions": [
+    "https://www.google.com/*"
+  ],
+  "content_scripts": [
+    {
+      "js": [
+        "script.js"
+      ],
+      "matches": [
+ 	"http://sp.pf.mbga.jp/12008305/*"
+      ],
+      "run_at": "document_start",
+      "all_frames":false
+    }
+  ],
+  "content_security_policy": "script-src 'self' https://www.google.com https://spreadsheets.google.com https://ajax.googleapis.com; object-src 'self'",
+  "options_page": "options.html",
+  "background": {
+      "page": "background.html"
+  }
+
+}
