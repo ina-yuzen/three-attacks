@@ -94,8 +94,11 @@ window.addEventListener("DOMContentLoaded", function(){
 if(location.href.lastIndexOf("battle") > -1)
 	ask_todo();
 else send_reset();
-if(location.href.lastIndexOf("present") > -1)
-	document.getElementById("chks_change").click();
+if(location.href.lastIndexOf("present") > -1){
+	var element = document.querySelector(".chks_change");
+	element.click();
+}
+//	document.getElementById("chks_change").click();
 }, false);
 
 function Sleep( T ){ 
