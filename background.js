@@ -2,12 +2,15 @@ var table;
 function callback(response){
           if (response.isError()) {
             alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+	    sendRequestToGoogle();
             return;
           }
 
         var data = response.getDataTable();
 	table = data;
 }
+
+function sendRequestToGoogle(){
 google.setOnLoadCallback(function(){
 console.log("loaded");
 var query = new google.visualization.Query("https://spreadsheets.google.com/a/google.com/tq?key=0AprwHw_VarWwdHc4QmpBNnBCdThpUERGVk1DQnVVYkE");
@@ -15,6 +18,9 @@ query.setQuery('select C where C IS NOT NULL ORDER BY A DESC LIMIT 1000');
 query.send(callback);
 });
 google.load('visualization', '1');
+}
+
+sendRequestToGoogle();
 
 var num = -1;
 var back = -1;
