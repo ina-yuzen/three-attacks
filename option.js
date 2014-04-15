@@ -12,7 +12,10 @@ function restore(){
 	var id = bg.getId();
 	console.log(id);
 	var str = "";
-	if(id=="wait") str = "Loading";
+	if(id=="wait") {
+		str = "Loading";
+	//	restore();
+	}
 	else {
 		ur = 'http://sp.pf.mbga.jp/12008305/?guid=ON&url=http%3A%2F%2F125.6.169.35%2Fidolmaster%2Fprofile%2Fshow%2F' + id;
 		str = '<input type="button" id="goto" value="go to dojo" style="width: 160px; height: 80px;" />';
@@ -40,5 +43,11 @@ document.getElementById("prev").addEventListener('click', function(){
 		document.getElementById("index").value--;
 		save();
 	},false);
+document.getElementById("check").addEventListener('click', toggleCheck, false);
 init();
 };
+
+function toggleCheck(){
+	var checkbox = document.getElementById("box");
+	checkbox.checked = !checkbox.checked;
+}
