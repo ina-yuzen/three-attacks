@@ -13,3 +13,17 @@ function getData(){
 		return 0;
 	}
 }
+function setCheck(flag){
+	localStorage.setItem("check", flag);
+	var bg = chrome.extension.getBackgroundPage();
+	bg.isCheck = flag;
+}
+function getCheck(){
+	try{
+		var check = localStorage.getItem("check");
+		if(check) return (check === 'true');
+		else return false;
+	} catch(e) {
+		return false;
+	}
+}

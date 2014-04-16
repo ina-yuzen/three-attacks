@@ -95,8 +95,15 @@ if(location.href.lastIndexOf("battle") > -1)
 	ask_todo();
 else send_reset();
 if(location.href.lastIndexOf("present") > -1){
-	var element = document.querySelector(".chks_change");
-	element.click();
+	var isCheck = false;
+
+	chrome.extension.sendRequest({req: "check"},function(response){
+		isCheck = (String(response.ans) == 'true');
+		if (!isCheck) {
+			var element = document.querySelector(".chks_change");
+			element.click();
+		}
+	});
 }
 //	document.getElementById("chks_change").click();
 }, false);
@@ -108,4 +115,4 @@ function Sleep( T ){
        d2=new Date().getTime(); 
    } 
    return; 
-} 
+}

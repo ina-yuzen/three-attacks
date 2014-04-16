@@ -26,6 +26,7 @@ var num = -1;
 var back = -1;
 var url = "";
 var iter = parseInt(getData(),10);
+var isCheck = false;
 
 function getId(){
 	console.log(iter);
@@ -84,8 +85,9 @@ chrome.extension.onRequest.addListener(
 		back = -1;
 		url = "";
 		sendResponse({});
-
-  	  }else
+	}else if (request.req == "check"){
+		sendResponse({ans: isCheck});
+  	}else
    	   	sendResponse({}); // snub them.
- 	 }
+ 	}
 );
