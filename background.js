@@ -97,7 +97,7 @@ chrome.extension.onRequest.addListener(
 	    }
 	}else if(request.req == "startAuto") {
 	    autoTabId = sender.tab.id;
-	    sendResponse({ans: "startauto"});
+	    sendResponse({ans: isAutomode});
 	}else if(request.req == "stopAuto") {
 	    autoTabId = null;
 	    sendResponse({ans: "stopauto"});

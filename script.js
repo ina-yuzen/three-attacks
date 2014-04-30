@@ -14,6 +14,8 @@ function close_win(){
     }
 }
 
+var isAutomode;
+
 document.onkeyup = function(e){
     if(location.href.lastIndexOf("profile") > -1){
 	// キーコード
@@ -26,7 +28,7 @@ document.onkeyup = function(e){
 	//var alt_key = e.altKey;
 	if(key_code == 13){
 	    send_startAuto();
-	    start_battle();
+	    //start_battle();
 	}else if(key_code == 39){
 	    send_next();
 	}else if(key_code == 37){
@@ -37,8 +39,10 @@ document.onkeyup = function(e){
     }
 };
 
-function start_battle(){
-    if (available_checking()) {
+function start_battle(isAutomode){
+    console.log(isAutomode);
+    if (typeof isAutomode === 'undefined') isAutomode = false;
+    if (!(isAutomode && !available_checking())) {
 	send_start();
     } else {
 	send_next();
@@ -65,6 +69,9 @@ function send_start(){
 function send_startAuto(){
     console.log("startauto");
     chrome.extension.sendRequest({req: "startAuto"},function(response){
+	console.log(response.ans);
+	//console.log(response.ans === "true");
+	start_battle(response.ans);
 	return;
     });
 }
@@ -81,7 +88,7 @@ function send_prev(){
 function ask_auto(){
     chrome.extension.sendRequest({req: "auto"},function(response){
 	if (response.ans == "yes") {
-	    start_battle();
+	    start_battle(true);
 	}
     });
 }
@@ -190,7 +197,7 @@ function available_checking(){
 	    under6000 = true;
 	}
     }
-    //console.log("under6000: " + under6000);
+    console.log("under6000: " + under6000);
 
     return xClosed && under6000;
 }
