@@ -170,29 +170,27 @@ function getIntroduction() {
 function available_checking(){
     var unitName = getUnitName();
     var introduction = getIntroduction();
-    var xClosed = !(unitName.indexOf("休業") > -1 || introduction.indexOf("休業") > -1);
+    var xClosed = !(unitName.indexOf("休業") > -1 || introduction.indexOf("休業") > -1
+		   || unitName.indexOf("休止") > -1 || introduction.indexOf("休止") > -1);
     
-    var strengths = extractNums(unitName);
-    strengths = strengths == null?
-	extractNums(introduction) : strengths.concat(extractNums(introduction));
+    var strengths = extractNums(unitName).concat(extractNums(introduction));
     
     var under6000 = false;
-    if (strengths == null) strengths = [];
     for (var i = 0; i < strengths.length; i++) {
 	var str = strengths[i];
-	console.log(str);
-	if (str == null) continue;
-	var i = parseFloat(str);
-	if (str.lastIndexOf("k") > -1) i *= 1000;
-	if (i < 1000) continue;
-	else if (i > 6000) {
+	//console.log(i + " : " + str);
+	if (str === null) continue;
+	var j = parseFloat(str);
+	if (str.lastIndexOf("k") > -1) j *= 1000;
+	if (j < 1000) continue;
+	else if (j > 6000) {
 	    under6000 = false;
 	    break;
 	} else {
 	    under6000 = true;
 	}
     }
-    console.log("under6000: " + under6000);
+    //console.log("under6000: " + under6000);
 
     return xClosed && under6000;
 }
@@ -200,5 +198,6 @@ function available_checking(){
 function extractNums( str ){
 // return [3500, 10k, 3.5k], for example.
     var num = new String( str ).match(/\d+(.\d+k)?k?/g);
+    if (num === null) num = [];
     return num;
 };
