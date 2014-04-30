@@ -74,7 +74,7 @@ function ask_todo(){
 		       console.log("no more rest");
 		       send_reset();
 		       send_next();
-		       break;
+		       return;
 		   }
 	       }
 	       document.forms[0].elements[0].click();
