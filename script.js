@@ -25,17 +25,8 @@ document.onkeyup = function(e){
 	// Altキーの押下状態
 	//var alt_key = e.altKey;
 	if(key_code == 13){
-	    if (available_checking()) {
-		send_start();
-	    } else {
-		send_next();
-		return;
-	    }
-	    var arr = document.links;
-	    for(var i=arr.length; i--;){
-		if(arr[i].innerHTML.lastIndexOf("button_livebattle.jpg") > -1)
-		    location.href=arr[i].href;
-	    }
+	    send_startAuto();
+	    start_battle();
 	}else if(key_code == 39){
 	    send_next();
 	}else if(key_code == 37){
@@ -45,6 +36,20 @@ document.onkeyup = function(e){
 	//ask_todo();
     }
 };
+
+function start_battle(){
+    if (available_checking()) {
+	send_start();
+    } else {
+	send_next();
+	return;
+    }
+    var arr = document.links;
+    for(var i=arr.length; i--;){
+	if(arr[i].innerHTML.lastIndexOf("button_livebattle.jpg") > -1)
+	    location.href=arr[i].href;
+    }
+}
 
 function send_reset(){
     chrome.extension.sendRequest({req: "reset"},function(response){
@@ -57,6 +62,12 @@ function send_start(){
 	console.log(response.ans);
     });
 }
+function send_startAuto(){
+    console.log("startauto");
+    chrome.extension.sendRequest({req: "startAuto"},function(response){
+	return;
+    });
+}
 function send_next(){
     chrome.extension.sendRequest({req: "next"},function(response){
 	location.href = "http://sp.pf.mbga.jp/12008305/?guid=ON&url=http%3A%2F%2F125.6.169.35%2Fidolmaster%2Fprofile%2Fshow%2F" + response.id;
@@ -65,6 +76,13 @@ function send_next(){
 function send_prev(){
     chrome.extension.sendRequest({req: "prev"},function(response){
 	location.href = "http://sp.pf.mbga.jp/12008305/?guid=ON&url=http%3A%2F%2F125.6.169.35%2Fidolmaster%2Fprofile%2Fshow%2F" + response.id;
+    });
+}
+function ask_auto(){
+    chrome.extension.sendRequest({req: "auto"},function(response){
+	if (response.ans == "yes") {
+	    start_battle();
+	}
     });
 }
 function ask_todo(){
@@ -108,7 +126,11 @@ function ask_todo(){
 window.addEventListener("DOMContentLoaded", function(){
     if(location.href.lastIndexOf("battle") > -1)
 	ask_todo();
-    else send_reset();
+    else {
+	send_reset();
+    }
+    if(location.href.lastIndexOf("profile") > -1)
+	ask_auto();
     if(location.href.lastIndexOf("present") > -1){
 	var isCheck = false;
 
@@ -176,7 +198,7 @@ function available_checking(){
 }
 
 function extractNums( str ){
-// return [3500, 10k], for example.
+// return [3500, 10k, 3.5k], for example.
     var num = new String( str ).match(/\d+(.\d+k)?k?/g);
     return num;
 };
