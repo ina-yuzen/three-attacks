@@ -25,7 +25,12 @@ document.onkeyup = function(e){
 	// Altキーの押下状態
 	//var alt_key = e.altKey;
 	if(key_code == 13){
-	    send_start();
+	    if (available_checking()) {
+		send_start();
+	    } else {
+		send_next();
+		return;
+	    }
 	    var arr = document.links;
 	    for(var i=arr.length; i--;){
 		if(arr[i].innerHTML.lastIndexOf("button_livebattle.jpg") > -1)
@@ -131,7 +136,7 @@ function getUnitName() {
     return document.getElementsByClassName("title_tenhoshi area_name")[0].textContent;
 }
 function getIntroduction() {
-    var elements = document.getElementByTagName("div");
+    var elements = document.getElementsByTagName("div");
     var i = 0;
     while (i < elements.length) {
 	if (elements[i].textContent == "\n\n自己紹介\n\n") break;
@@ -139,3 +144,39 @@ function getIntroduction() {
     }
     return elements[i+1].textContent;
 }
+
+function available_checking(){
+    var unitName = getUnitName();
+    var introduction = getIntroduction();
+    var xClosed = !(unitName.indexOf("休業") > -1 || introduction.indexOf("休業") > -1);
+    
+    var strengths = extractNums(unitName);
+    strengths = strengths == null?
+	extractNums(introduction) : strengths.concat(extractNums(introduction));
+    
+    var under6000 = false;
+    if (strengths == null) strengths = [];
+    for (var i = 0; i < strengths.length; i++) {
+	var str = strengths[i];
+	console.log(str);
+	if (str == null) continue;
+	var i = parseFloat(str);
+	if (str.lastIndexOf("k") > -1) i *= 1000;
+	if (i < 1000) continue;
+	else if (i > 6000) {
+	    under6000 = false;
+	    break;
+	} else {
+	    under6000 = true;
+	}
+    }
+    console.log("under6000: " + under6000);
+
+    return xClosed && under6000;
+}
+
+function extractNums( str ){
+// return [3500, 10k], for example.
+    var num = new String( str ).match(/\d+(.\d+k)?k?/g);
+    return num;
+};
