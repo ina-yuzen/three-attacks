@@ -13,14 +13,14 @@ function getData(){
 		return 0;
 	}
 }
-function setCheck(flag){
-	localStorage.setItem("check", flag);
+function setCheck(index, flag){
+	localStorage.setItem(index, flag);
 	var bg = chrome.extension.getBackgroundPage();
 	bg.isCheck = flag;
 }
-function getCheck(){
+function getCheck(index){
 	try{
-		var check = localStorage.getItem("check");
+		var check = localStorage.getItem(index);
 		if(check) return (check === 'true');
 		else return false;
 	} catch(e) {
