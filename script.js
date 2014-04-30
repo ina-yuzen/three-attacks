@@ -126,3 +126,16 @@ function Sleep( T ){
     } 
     return; 
 }
+
+function getUnitName() {
+    return document.getElementsByClassName("title_tenhoshi area_name")[0].textContent;
+}
+function getIntroduction() {
+    var elements = document.getElementByTagName("div");
+    var i = 0;
+    while (i < elements.length) {
+	if (elements[i].textContent == "\n\n自己紹介\n\n") break;
+	i++;
+    }
+    return elements[i+1].textContent;
+}
