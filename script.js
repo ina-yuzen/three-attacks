@@ -131,9 +131,10 @@ function ask_todo(){
 }
 
 window.addEventListener("DOMContentLoaded", function(){
-    if(location.href.lastIndexOf("battle") > -1)
+    if(location.href.lastIndexOf("battle") > -1){
+	if (location.href.lastIndexOf("flash") < 0) // skip loading flash
 	ask_todo();
-    else {
+    } else {
 	send_reset();
     }
     if(location.href.lastIndexOf("profile") > -1)
@@ -208,3 +209,6 @@ function extractNums( str ){
     if (num === null) num = [];
     return num;
 };
+
+if(location.href.lastIndexOf("battle") > -1 && location.href.lastIndexOf("flash") > -1) 
+    ask_todo();
