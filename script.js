@@ -182,7 +182,8 @@ function available_checking(){
     var xClosed = !(names.indexOf("休業") > -1 
 		   || names.indexOf("休止") > -1
 		    || names.indexOf("作業") > -1);
-    
+    var ngWords = names.indexOf("もふもふ道場") > -1;
+
     var strengths = extractNums(names);
     
     var under6000 = false;
@@ -202,7 +203,7 @@ function available_checking(){
     }
     console.log("under6000: " + under6000);
 
-    return xClosed && under6000;
+    return xClosed && under6000 && !ngWords;
 }
 
 function extractNums( str ){
