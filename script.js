@@ -178,10 +178,12 @@ function getIntroduction() {
 function available_checking(){
     var unitName = getUnitName();
     var introduction = getIntroduction();
-    var xClosed = !(unitName.indexOf("休業") > -1 || introduction.indexOf("休業") > -1
-		   || unitName.indexOf("休止") > -1 || introduction.indexOf("休止") > -1);
+    var names = unitName + "\n" + introduction;
+    var xClosed = !(names.indexOf("休業") > -1 
+		   || names.indexOf("休止") > -1
+		    || names.indexOf("作業") > -1);
     
-    var strengths = extractNums(unitName).concat(extractNums(introduction));
+    var strengths = extractNums(names);
     
     var under6000 = false;
     for (var i = 0; i < strengths.length; i++) {
@@ -205,7 +207,7 @@ function available_checking(){
 
 function extractNums( str ){
 // return [3500, 10k, 3.5k], for example.
-    var num = new String( str ).match(/\d+(.\d+k)?k?/g);
+    var num = new String( str ).match(/\d+(.\d+[kK])?[kK]?/g);
     if (num === null) num = [];
     return num;
 };
