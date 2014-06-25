@@ -163,13 +163,13 @@ function Sleep( T ){
 }
 
 function getUnitName() {
-    return document.getElementsByClassName("title_tenhoshi area_name")[0].textContent;
+    return document.getElementsByClassName("title_tenhoshi")[0].textContent;
 }
 function getIntroduction() {
     var elements = document.getElementsByTagName("div");
     var i = 0;
     while (i < elements.length) {
-	if (elements[i].textContent == "\n\n自己紹介\n\n") break;
+	if (elements[i].textContent == "自己紹介") break;
 	i++;
     }
     return elements[i+1].textContent;
