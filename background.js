@@ -37,6 +37,7 @@ function getId(){
     else return "wait";
 }
 function reload(){
+    table = null;
     var query = new google.visualization.Query("https://spreadsheets.google.com/a/google.com/tq?key=0AprwHw_VarWwdHc4QmpBNnBCdThpUERGVk1DQnVVYkE");
     query.setQuery('select C where C IS NOT NULL ORDER BY A DESC LIMIT 1000');
     query.send(callback);
