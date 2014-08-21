@@ -14,8 +14,6 @@ function close_win(){
     }
 }
 
-var isAutomode;
-
 document.onkeyup = function(e){
     if(location.href.lastIndexOf("profile") > -1){
 	// キーコード
@@ -97,7 +95,7 @@ function ask_todo(){
 	if(response.ans == "do")
 	{  console.log("done");
 	   try{
-	       var elements = document.getElementsByClassName("m-Btm10");
+	       var elements = document.getElementsByClassName("red_mild");
 	       console.log("get element");
 	       for (var i = 0; i < elements.length; i++) {
 		   if (elements[i].textContent.indexOf("※同じﾌﾟﾛﾃﾞｭｰｻｰとは、1日3回までしかLIVEﾊﾞﾄﾙできません") > -1) {
@@ -112,8 +110,6 @@ function ask_todo(){
 	       console.log(e);
 	       send_reset();
 	   }
-	   //location.reload();
-
 	}
 	else if(response.ans == "back"){
 	    console.log("back");
@@ -152,15 +148,6 @@ window.addEventListener("DOMContentLoaded", function(){
     }
     //	document.getElementById("chks_change").click();
 }, false);
-
-function Sleep( T ){ 
-    var d1 = new Date().getTime(); 
-    var d2 = new Date().getTime(); 
-    while( d2 < d1+1000*T ){    //T秒待つ 
-	d2=new Date().getTime(); 
-    } 
-    return; 
-}
 
 function getUnitName() {
     return document.getElementsByClassName("title_tenhoshi")[0].textContent;
