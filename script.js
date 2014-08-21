@@ -1,5 +1,4 @@
-function close_win(){
-    if(location.href.lastIndexOf("battle") > -1){
+function close_win(){    if(location.href.lastIndexOf("battle") > -1){
 	var nvua = navigator.userAgent;
 	if(nvua.indexOf('MSIE') >= 0){
 	    if(nvua.indexOf('MSIE 5.0') == -1) {
@@ -98,7 +97,7 @@ function ask_todo(){
 	       var elements = document.getElementsByClassName("red_mild");
 	       console.log("get element");
 	       for (var i = 0; i < elements.length; i++) {
-		   if (elements[i].textContent.indexOf("※同じﾌﾟﾛﾃﾞｭｰｻｰとは、1日3回までしかLIVEﾊﾞﾄﾙできません") > -1) {
+		   if (elements[i].textContent.indexOf("※同じプロデューサーとは、1日3回までしかLIVEバトルできません") > -1) {
 		       console.log("no more rest");
 		       send_reset();
 		       send_next();
