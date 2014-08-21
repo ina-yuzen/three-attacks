@@ -8,6 +8,11 @@ function callback(response){
 
     var data = response.getDataTable();
     table = data;
+    if (dojo_element) {
+	str = '<input type="button" id="goto" value="go to dojo" style="width: 160px; height: 80px;" />';
+	dojo_element.innerHTML = str;
+	dojo_element.children.goto.addEventListener('click', go_to_dojo, false);
+    }
 }
 
 function sendRequestToGoogle(){
@@ -106,3 +111,11 @@ chrome.extension.onRequest.addListener(
    	    sendResponse({}); // snub them.
     }
 );
+
+function go_to_dojo() {
+    if (table != null) {
+	var url = 'http://sp.pf.mbga.jp/12008305/?guid=ON&url=http%3A%2F%2F125.6.169.35%2Fidolmaster%2Fprofile%2Fshow%2F' + table.getValue(parseInt(document.getElementById("index").value), 0);
+	console.log(url);
+	chrome.tabs.create({url:url},void(0));
+    }
+}
