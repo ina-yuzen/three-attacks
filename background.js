@@ -112,10 +112,3 @@ chrome.extension.onRequest.addListener(
     }
 );
 
-function go_to_dojo() {
-    if (table != null) {
-	var url = 'http://sp.pf.mbga.jp/12008305/?guid=ON&url=http%3A%2F%2F125.6.169.35%2Fidolmaster%2Fprofile%2Fshow%2F' + table.getValue(parseInt(document.getElementById("index").value), 0);
-	console.log(url);
-	chrome.tabs.create({url:url},void(0));
-    }
-}
