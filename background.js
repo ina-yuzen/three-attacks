@@ -13,7 +13,7 @@ function callback(response){
 function sendRequestToGoogle(){
 	console.log("requesting");
 	var query = new google.visualization.Query("https://spreadsheets.google.com/a/google.com/tq?key=0AprwHw_VarWwdHc4QmpBNnBCdThpUERGVk1DQnVVYkE");
-	query.setQuery('select C where C IS NOT NULL ORDER BY A DESC LIMIT 1000');
+	query.setQuery('SELECT C WHERE C IS NOT NULL ORDER BY A DESC LIMIT 1000');
 	query.send(callback);
 }
 google.setOnLoadCallback(sendRequestToGoogle);
