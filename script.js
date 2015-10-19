@@ -127,6 +127,7 @@ function ask_todo(){
 
 window.addEventListener("DOMContentLoaded", function(){
     if(location.href.lastIndexOf("battle") > -1){
+      window.onload = function () {};
 	if (location.href.lastIndexOf("flash") < 0) // skip loading flash
 	ask_todo();
     } else {

@@ -67,7 +67,11 @@ chrome.extension.onRequest.addListener(
 	    setData(iter);
 	    sendResponse({ans: "ok" ,id: table.getValue(iter,0)});
 	}else if(request.req == "ask"){
-	    if(num > 0 && back == 0){
+	  if(num > 0 && back == 0){
+            if(request.href.lastIndexOf('flash') > -1) {
+              sendResponse({ans: "back",href: url});
+              return;
+            }
 		url = request.href;
 		sendResponse({ans: "do"});
 		num--;
