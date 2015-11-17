@@ -104,7 +104,11 @@ function ask_todo(){
 		       return;
 		   }
 	       }
-	       document.forms[0].elements[0].click();
+             if ($('h3.title_hanyo').children(':contains("攻コストが足りません")').length) {
+	       send_reset();
+	       return;
+             }
+	     document.forms[0].elements[0].click();
 	   }catch(e){
 	       console.log(e);
 	       send_reset();

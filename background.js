@@ -77,8 +77,8 @@ chrome.extension.onRequest.addListener(
 		num--;
 		back = 2;
 	    }else if(num == 0){
-		num = -1;
-		back = -1;
+		num = -2;
+		back = -2;
 		url = "";
 		iter++;
 		setData(iter);
@@ -89,7 +89,13 @@ chrome.extension.onRequest.addListener(
 	    } else if(back == 1){
 		sendResponse({ans: "reload"});
 		back--;
-	    }  else sendResponse({ans: "no"});
+	    } else if (num < -1 && request.href.lastIndexOf('flash') > -1) {
+		sendResponse({ans: "close" ,id: table.getValue(iter,0)});
+            } else {
+	      num = -1;
+	      back = -1;
+              sendResponse({ans: "no"});
+            }
 	}else if(request.req == "reset"){
 	    num = -1;
 	    back = -1;
