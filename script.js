@@ -47,7 +47,7 @@ function start_battle(isAutomode){
     }
     var arr = document.links;
     for(var i=arr.length; i--;){
-	if(arr[i].innerHTML.lastIndexOf("button_livebattle.jpg") > -1)
+	if(arr[i].innerHTML.lastIndexOf("button_livebattle") > -1)
 	    location.href=arr[i].href;
     }
 }
