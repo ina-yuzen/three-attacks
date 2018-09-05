@@ -1,3 +1,10 @@
+function decrypt(s) {
+    return decodeURIComponent(escape(window.atob(s)));
+}
+
+var query = 'P2d1aWQ9T04mdXJsPWh0dHAlM0ElMkYlMkYxMjUuNi4xNjkuMzUlMkZpZG9sbWFzdGVyJTJGcHJvZmlsZSUyRnNob3clMkY=';
+var domain = decrypt('aHR0cDovL3NwLnBmLm1iZ2EuanAvMTIwMDgzMDUv') + decrypt(query);
+
 function close_win(){    if(location.href.lastIndexOf("battle") > -1){
 	var nvua = navigator.userAgent;
 	if(nvua.indexOf('MSIE') >= 0){
@@ -74,12 +81,12 @@ function send_startAuto(){
 }
 function send_next(){
     chrome.extension.sendRequest({req: "next"},function(response){
-	location.href = "http://sp.pf.mbga.jp/12008305/?guid=ON&url=http%3A%2F%2F125.6.169.35%2Fidolmaster%2Fprofile%2Fshow%2F" + response.id;
+	location.href = domain + response.id;
     });
 }
 function send_prev(){
     chrome.extension.sendRequest({req: "prev"},function(response){
-	location.href = "http://sp.pf.mbga.jp/12008305/?guid=ON&url=http%3A%2F%2F125.6.169.35%2Fidolmaster%2Fprofile%2Fshow%2F" + response.id;
+	location.href = domain + response.id;
     });
 }
 function ask_auto(){
@@ -97,18 +104,18 @@ function ask_todo(){
 	       var elements = document.getElementsByClassName("red_mild");
 	       console.log("get element");
 	       for (var i = 0; i < elements.length; i++) {
-		   if (elements[i].textContent.indexOf("※同じプロデューサーとは、1日3回までしかLIVEバトルできません") > -1) {
+		 if (elements[i].textContent.indexOf(decrypt('4oC75ZCM44GY44OX44Ot44OH44Ol44O844K144O844Go44Gv44CBMeaXpTPlm57jgb7jgafjgZfjgYtMSVZF44OQ44OI44Or44Gn44GN44G+44Gb44KT')) > -1) {
 		       console.log("no more rest");
 		       send_reset();
 		       send_next();
 		       return;
 		   }
 	       }
-             if ($('h3.title_hanyo').children(':contains("攻コストが足りません")').length) {
+                 if ($('h3.title_hanyo').children(decrypt('OmNvbnRhaW5zKCLmlLvjgrPjgrnjg4jjgYzotrPjgorjgb7jgZvjgpMiKQ==')).length) {
 	       send_reset();
 	       return;
              }
-	     document.forms[0].elements[0].click();
+	     document.forms[0].querySelector('input[type=submit]').click();
 	   }catch(e){
 	       console.log(e);
 	       send_reset();
@@ -123,7 +130,7 @@ function ask_todo(){
 	    location.reload();
 	}
 	else if(response.ans == "close"){
-	    location.href = "http://sp.pf.mbga.jp/12008305/?guid=ON&url=http%3A%2F%2F125.6.169.35%2Fidolmaster%2Fprofile%2Fshow%2F" + response.id;
+	    location.href = domain + response.id;
 	}
 	else console.log("no");
     });
